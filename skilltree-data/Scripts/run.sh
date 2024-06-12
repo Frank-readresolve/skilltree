@@ -11,7 +11,6 @@ echo "----------"
 
 USR=$1
 PWD=$2
-echo "usr=${USR}, pwd=${PWD}"
 HOST=$3
 DB=$4
 
