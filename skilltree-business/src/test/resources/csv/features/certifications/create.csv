@@ -1,0 +1,4 @@
+json
+
+{"certificationLevelId" : 1, "code" : "TEST01", "name" : "Test 1", "acronym" : "TST1", "startYear" : 2018, "description" : null}
+{"certificationLevelId" : 1, "code" : "TEST02", "name" : "Test 2", "acronym" : "TST2", "startYear" : ${year()}, "description" : "Test 2"}

@@ -1,0 +1,3 @@
+method§path§tokenName§json
+
+POST§/accounts/sign-in§anonymous§{"username" : "a", "password" : "a"}

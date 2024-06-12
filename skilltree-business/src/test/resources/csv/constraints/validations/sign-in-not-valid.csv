@@ -1,0 +1,9 @@
+method§path§tokenName§json§field§error
+
+POST§/accounts/sign-in§anonymous§{"username" : null, "password" : "a"}§username§E_MUST_BE_NOT_BLANK
+POST§/accounts/sign-in§anonymous§{"username" : "", "password" : "a"}§username§E_MUST_BE_NOT_BLANK
+POST§/accounts/sign-in§anonymous§{"username" : " ", "password" : "a"}§username§E_MUST_BE_NOT_BLANK
+
+POST§/accounts/sign-in§anonymous§{"username" : "a", "password" : null}§password§E_MUST_BE_NOT_BLANK
+POST§/accounts/sign-in§anonymous§{"username" : "a", "password" : ""}§password§E_MUST_BE_NOT_BLANK
+POST§/accounts/sign-in§anonymous§{"username" : "a", "password" : " "}§password§E_MUST_BE_NOT_BLANK

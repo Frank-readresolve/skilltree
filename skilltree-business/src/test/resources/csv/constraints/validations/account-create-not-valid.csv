@@ -1,0 +1,22 @@
+method§path§tokenName§json§field§error
+
+POST§/accounts§admin§{"username" : null, "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : " ", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_EMAIL_FORMED
+POST§/accounts§admin§{"username" : "a@", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_EMAIL_FORMED
+POST§/accounts§admin§{"username" : "a@b.", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_EMAIL_FORMED
+POST§/accounts§admin§{"username" : "a@b.c", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_SIZE_INCLUDED[6,255]
+POST§/accounts§admin§{"username" : "aaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.fgh", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_SIZE_INCLUDED[6,255]
+POST§/accounts§admin§{"username" : "trainer@localhost", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_UNIQUE
+POST§/accounts§admin§{"username" : "TRAINER@localhost", "firstname" : "a", "lastname" : "a"}§username§E_MUST_BE_UNIQUE
+
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : null, "lastname" : "a"}§firstname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : "", "lastname" : "a"}§firstname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : " ", "lastname" : "a"}§firstname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "lastname" : "a"}§firstname§E_MUST_BE_SIZE_INCLUDED[1,100]
+
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : null}§lastname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : ""}§lastname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : " "}§lastname§E_MUST_BE_NOT_BLANK
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}§lastname§E_MUST_BE_SIZE_INCLUDED[1,100]

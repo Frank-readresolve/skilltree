@@ -1,0 +1,4 @@
+json
+
+{"activityId" : 1, "code" : "TEST01", "name" : "Test 1", "description" : null}
+{"activityId" : 1, "code" : "TEST02", "name" : "Test 2", "description" : "Test 2"}

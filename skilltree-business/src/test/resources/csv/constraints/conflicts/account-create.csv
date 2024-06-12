@@ -1,0 +1,12 @@
+method§path§tokenName§json
+
+POST§/accounts§admin§{"username" : null, "firstname" : "a", "lastname" : "a"}
+POST§/accounts§admin§{"username" : "aaaaaa@bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd.eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.fgh", "firstname" : "a", "lastname" : "a"}
+POST§/accounts§admin§{"username" : "trainer@localhost", "firstname" : "a", "lastname" : "a"}
+POST§/accounts§admin§{"username" : "TRAINER@localhost", "firstname" : "a", "lastname" : "a"}
+
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : null, "lastname" : "a"}
+POST§/accounts§admin§{"username" : "a@b.cd", "firstname" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "lastname" : "a"}
+
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : null}
+POST§/accounts§admin§{"username" : "a@bcde", "firstname" : "a", "lastname" : "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
