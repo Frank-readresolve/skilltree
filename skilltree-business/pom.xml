@@ -9,7 +9,7 @@
 		<version>3.3.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>co.simplon.skilltree</groupId>
+	<groupId>tech.readresolve.skilltree</groupId>
 	<artifactId>skilltree-business</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>skilltree-business</name>
