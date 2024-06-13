@@ -1,0 +1,64 @@
+:root {
+    --st-colors-white: #fff;
+    --st-colors-greylight: rgb(248, 249, 250);
+    --st-colors-greydark: rgb(108, 117, 125);
+    --st-colors-yellow: #ffff00;
+    --st-colors-purple: #6f42c1;
+}
+
+.st-color-white {
+    color: var(--st-colors-white);
+}
+
+.st-bgcolor-white {
+    background-color: var(--st-colors-white);
+}
+
+.st-color-greylight {
+    color: var(--st-colors-greylight);
+}
+
+.st-bgcolor-greylight {
+    background-color: var(--st-colors-greylight);
+}
+
+.st-color-greydark {
+    color: var(--st-colors-greydark);
+}
+
+.st-bgcolor-greydark {
+    background-color: var(--st-colors-greydark);
+}
+
+.st-color-yellow {
+    color: var(--st-colors-yellow);
+}
+
+.st-bgcolor-yellow {
+    background-color: var(--st-colors-yellow);
+}
+
+.st-color-purple {
+    color: var(--st-colors-purple);
+}
+
+.st-bgcolor-purple {
+    background-color: var(--st-colors-purple);
+}
+
+blockquote>p::before {
+    content: open-quote;
+}
+
+blockquote>p::after {
+    content: close-quote;
+}
+
+.form-label.required::after {
+    content: ' *';
+    color: var(--st-colors-purple);
+}
+
+.bi.link {
+    cursor: pointer;
+}
