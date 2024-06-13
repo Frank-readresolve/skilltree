@@ -13,7 +13,8 @@ public record JwtProvider(String issuer, long expiration,
 	ZoneId zoneId, Algorithm algorithm) {
 
     String create(String subject, List<String> roles) {
-	LocalDateTime now = LocalDateTime.now(zoneId);
+	LocalDateTime now = LocalDateTime
+		.now(ZoneId.of("Z"));
 	Instant issuedAt = now.atZone(zoneId).toInstant();
 	Builder builder = JWT.create().withIssuer(issuer)
 		.withIssuedAt(issuedAt);
