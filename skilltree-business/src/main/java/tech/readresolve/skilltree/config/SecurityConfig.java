@@ -1,7 +1,5 @@
 package tech.readresolve.skilltree.config;
 
-import java.time.Clock;
-import java.time.ZoneId;
 import java.util.List;
 
 import javax.crypto.SecretKey;
@@ -38,9 +36,6 @@ class SecurityConfig {
 
     @Value("${skilltree.security.jwt.expiration}")
     private long expiration;
-
-    @Value("${skilltree.security.jwt.zoneId}")
-    private String zoneId;
 
     @Value("${skilltree.security.jwt.secret}")
     private String secret;
@@ -86,11 +81,8 @@ class SecurityConfig {
     }
 
     private OAuth2TokenValidator<Jwt> tokenValidator() {
-	ZoneId id = ZoneId.of(zoneId);
-	JwtTimestampValidator timestampValidator = new JwtTimestampValidator();
-	timestampValidator.setClock(Clock.system(id));
 	List<OAuth2TokenValidator<Jwt>> validators = List
-		.of(timestampValidator,
+		.of(new JwtTimestampValidator(),
 			new JwtIssuerValidator(issuer));
 	return new DelegatingOAuth2TokenValidator<>(
 		validators);
@@ -109,9 +101,8 @@ class SecurityConfig {
 
     @Bean
     JwtProvider jwtProvider() {
-	ZoneId id = ZoneId.of(zoneId);
 	Algorithm algorithm = Algorithm.HMAC256(secret);
-	return new JwtProvider(issuer, expiration, id,
+	return new JwtProvider(issuer, expiration,
 		algorithm);
     }
 
