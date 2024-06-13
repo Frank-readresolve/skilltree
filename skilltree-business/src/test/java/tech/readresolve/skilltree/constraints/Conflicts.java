@@ -12,7 +12,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import tech.readresolve.skilltree.BaseMvcTests;
 import tech.readresolve.skilltree.services.helpers.Mailer;
 
-@DisplayName("Tests inputs against database constraints (FK, max-length, unique, null)")
+@DisplayName("Tests inputs against database constraints")
 //@TestData
 @Transactional
 class Conflicts extends BaseMvcTests {
@@ -27,14 +27,17 @@ class Conflicts extends BaseMvcTests {
 
     @DisplayName("Should inputs be conflicting and return 409")
     @ParameterizedTest
-    @CsvFileSource(resources = { PATH + "account-create.csv",
-	    PATH + "activity-create.csv", PATH + "certification-create.csv",
-	    PATH + "skill-create.csv", PATH + "training-create.csv" },
-	    numLinesToSkip = 1, delimiter = DELIMITER,
-	    maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldBeConflicting(String method, String path, String tokenName,
-	    String json) throws Exception {
-	perform(method, path, tokenName, json).andExpect(status().is(409));
+    @CsvFileSource(resources = {
+	    PATH + "account-create.csv",
+	    PATH + "activity-create.csv",
+	    PATH + "certification-create.csv",
+	    PATH + "skill-create.csv",
+	    PATH + "training-create.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    void shouldBeConflicting(String method, String path,
+	    String tokenName, String json)
+	    throws Exception {
+	perform(method, path, tokenName, json)
+		.andExpect(status().is(409));
     }
 
 }
