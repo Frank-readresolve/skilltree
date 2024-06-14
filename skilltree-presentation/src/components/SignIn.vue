@@ -12,8 +12,8 @@ export default {
     }, data() {
         return {
             inputs: {
-                username: "admin@localhost",
-                password: "test"
+                username: null,
+                password: null
             }, vuelidateExternalResults: {}
         }
     },
