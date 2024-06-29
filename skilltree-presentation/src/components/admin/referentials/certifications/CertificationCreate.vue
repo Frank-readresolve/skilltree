@@ -82,7 +82,7 @@ export default {
                     </div>
                     <div class="col-6 col-lg-3 mb-3">
                         <FormLabel for="startYear" required="true" path="admin.referentials.certifications.startYear" />
-                        <input name="startYear" id="startYear" type="text" class="form-control"
+                        <input name="startYear" id="startYear" type="text" inputmode="numeric" class="form-control"
                             v-model.trim.number="inputs.startYear" maxlength="4" v-invalid-field>
                         <div class="form-text">{{ $t('admin.referentials.certifications.startYearHelp') }}</div>
                     </div>
