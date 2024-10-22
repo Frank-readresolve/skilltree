@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableCaching
-public class Skilltree {
+public class SkillTree {
 
     public static void main(String[] args) {
-	SpringApplication.run(Skilltree.class, args);
+	SpringApplication.run(SkillTree.class, args);
     }
 
     @Bean
