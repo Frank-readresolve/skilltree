@@ -12,9 +12,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-@SpringBootTest(classes = Skilltree.class)
+@SpringBootTest(classes = SkillTree.class)
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
+// @TestExecutionListeners(value = {
+// SpringTestProfilerListener.class }, mergeMode =
+// TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
+// @ContextConfiguration(initializers =
+// ContextDiagnosticApplicationInitializer.class)
 public class BaseMvcTests {
 
     protected static final char DELIMITER = '§';
@@ -27,44 +32,35 @@ public class BaseMvcTests {
     @Autowired
     private Tokens tokens;
 
-    protected final ResultActions perform(String method,
-	    String path, String tokenName)
-	    throws Exception {
+    protected final ResultActions perform(String method, String path,
+	    String tokenName) throws Exception {
 	return perform(method, path, tokenName, null);
     }
 
-    protected final ResultActions perform(String method,
-	    String path, String tokenName, String json)
-	    throws Exception {
-	var builder = requestBuilder(method, path,
-		tokenName, json);
+    protected final ResultActions perform(String method, String path,
+	    String tokenName, String json) throws Exception {
+	var builder = requestBuilder(method, path, tokenName, json);
 	return perform(builder);
     }
 
-    protected final ResultActions perform(
-	    MockHttpServletRequestBuilder builder)
+    protected final ResultActions perform(MockHttpServletRequestBuilder builder)
 	    throws Exception {
 	return mvc.perform(builder);
     }
 
-    protected final MockHttpServletRequestBuilder requestBuilder(
-	    String method, String path, String tokenName) {
-	return requestBuilder(method, path, tokenName,
-		null);
+    protected final MockHttpServletRequestBuilder requestBuilder(String method,
+	    String path, String tokenName) {
+	return requestBuilder(method, path, tokenName, null);
     }
 
-    protected final MockHttpServletRequestBuilder requestBuilder(
-	    String method, String path, String tokenName,
-	    String json) {
-	var builder = request(HttpMethod.valueOf(method),
-		path);
+    protected final MockHttpServletRequestBuilder requestBuilder(String method,
+	    String path, String tokenName, String json) {
+	var builder = request(HttpMethod.valueOf(method), path);
 	if (!"anonymous".equals(tokenName)) {
-	    builder.header("Authorization",
-		    tokens.get(tokenName));
+	    builder.header("Authorization", tokens.get(tokenName));
 	}
 	if (null != json) {
-	    builder.contentType(MediaType.APPLICATION_JSON)
-		    .content(json);
+	    builder.contentType(MediaType.APPLICATION_JSON).content(json);
 	}
 	return builder;
     }

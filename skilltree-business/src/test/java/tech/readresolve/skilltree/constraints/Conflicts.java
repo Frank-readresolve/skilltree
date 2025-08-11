@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
@@ -13,16 +13,15 @@ import tech.readresolve.skilltree.BaseMvcTests;
 import tech.readresolve.skilltree.services.helpers.Mailer;
 
 @DisplayName("Tests inputs against database constraints")
-//@TestData
 @Transactional
 class Conflicts extends BaseMvcTests {
 
     private final static String PATH = "/csv/constraints/conflicts/";
 
-    @MockBean
+    @MockitoBean
     private Mailer mailer;
 
-    @MockBean
+    @MockitoBean
     private LocalValidatorFactoryBean validator;
 
     @DisplayName("Should inputs be conflicting and return 409")

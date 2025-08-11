@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jayway.jsonpath.JsonPath;
 
-//@TestData
 @Transactional
 public class BaseIntegrationTests extends BaseMvcTests {
 
@@ -21,7 +20,7 @@ public class BaseIntegrationTests extends BaseMvcTests {
     @PersistenceContext
     private EntityManager entityManager;
 
-    protected final static String jpql(String query, Object... params) {
+    protected static String jpql(String query, Object... params) {
 	return String.format(query, params);
     }
 
@@ -39,22 +38,22 @@ public class BaseIntegrationTests extends BaseMvcTests {
 	return entityManager.find(type, id);
     }
 
-    protected final static LocalDate asLocalDate(String json, String path) {
+    protected static LocalDate asLocalDate(String json, String path) {
 	var candidate = (String) JsonPath.read(json, path);
 	return null == candidate ? null
 		: LocalDate.parse(candidate, DATE_FORMATTER);
     }
 
-    protected final static Long asLong(String json, String path) {
+    protected static Long asLong(String json, String path) {
 	var candidate = (Integer) JsonPath.read(json, path);
 	return null == candidate ? null : candidate.longValue();
     }
 
-    protected final static String asString(String json, String path) {
+    protected static String asString(String json, String path) {
 	return (String) JsonPath.read(json, path);
     }
 
-    protected final static Year asYear(String json, String path) {
+    protected static Year asYear(String json, String path) {
 	var candidate = (Integer) JsonPath.read(json, path);
 	return null == candidate ? null : Year.of(candidate);
     }

@@ -1,7 +1,11 @@
 package tech.readresolve.skilltree;
 
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import tech.readresolve.skilltree.controllers.AccountController;
 import tech.readresolve.skilltree.controllers.ActivityController;
@@ -10,25 +14,11 @@ import tech.readresolve.skilltree.controllers.CertificationLevelController;
 import tech.readresolve.skilltree.controllers.SkillController;
 import tech.readresolve.skilltree.controllers.TrainingController;
 
-@TestConfiguration
-public class ControllerMocks {
-
-    @MockBean
-    private AccountController accountController;
-
-    @MockBean
-    private ActivityController activityController;
-
-    @MockBean
-    private CertificationLevelController certificationLevelController;
-
-    @MockBean
-    private CertificationController certificationController;
-
-    @MockBean
-    private SkillController skillController;
-
-    @MockBean
-    private TrainingController trainingController;
-
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@MockitoBean(types = { AccountController.class, ActivityController.class,
+	CertificationLevelController.class, CertificationController.class,
+	SkillController.class, TrainingController.class })
+public @interface ControllerMocks {
+    //
 }
