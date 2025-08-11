@@ -4,6 +4,7 @@
 **/*-dev.*
 **/logs/
 **/secrets/
+**/spring.factories
 
 **/.metadata
 **/.classpath
