@@ -28,6 +28,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 @Configuration
 class SecurityConfig {
 
+    private static final String ADMIN_ROLE = "ADMIN";
+
     @Value("${skilltree.cors.enabled}")
     private boolean corsEnabled;
 
@@ -41,59 +43,50 @@ class SecurityConfig {
     private String secret;
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http)
-	    throws Exception {
-	http.cors(corsCustomizer())
-		.csrf(csrf -> csrf.disable())
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	http.cors(corsCustomizer()).csrf(csrf -> csrf.disable())
 		.logout(logout -> logout.disable())
-		.sessionManagement(
-			management -> management.disable())
+		.sessionManagement(management -> management.disable())
 		// ------
 		.authorizeHttpRequests(req -> req
-			.requestMatchers(HttpMethod.POST,
-				"/accounts/sign-in")
+			.requestMatchers(HttpMethod.POST, "/accounts/sign-in")
 			.anonymous())
-		.authorizeHttpRequests(req -> req
-			.requestMatchers(HttpMethod.POST,
-				"/accounts",
-				"/certifications",
-				"/activities", "/skills",
-				"/trainings")
-			.hasRole("ADMIN"))
-		.authorizeHttpRequests(req -> req
-			.requestMatchers(HttpMethod.PATCH,
-				"/accounts/{id}/password")
-			.hasRole("ADMIN"))
-		.authorizeHttpRequests(req -> req
-			.requestMatchers(HttpMethod.GET,
-				"/accounts")
-			.hasRole("ADMIN"))
-		.authorizeHttpRequests(reqs -> reqs
-			.anyRequest().authenticated())
-		.oauth2ResourceServer(srv -> srv
-			.jwt(Customizer.withDefaults()));
+		.authorizeHttpRequests(
+			req -> req
+				.requestMatchers(HttpMethod.POST, "/accounts",
+					"/certifications", "/activities",
+					"/skills", "/trainings")
+				.hasRole(ADMIN_ROLE))
+		.authorizeHttpRequests(
+			req -> req
+				.requestMatchers(HttpMethod.PATCH,
+					"/accounts/{id}/password")
+				.hasRole(ADMIN_ROLE))
+		.authorizeHttpRequests(
+			req -> req.requestMatchers(HttpMethod.GET, "/accounts")
+				.hasRole(ADMIN_ROLE))
+		.authorizeHttpRequests(
+			reqs -> reqs.anyRequest().authenticated())
+		.oauth2ResourceServer(
+			srv -> srv.jwt(Customizer.withDefaults()));
 	return http.build();
     }
 
     private Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
-	return corsEnabled ? Customizer.withDefaults()
-		: cors -> cors.disable();
+	return corsEnabled ? Customizer.withDefaults() : cors -> cors.disable();
     }
 
     private OAuth2TokenValidator<Jwt> tokenValidator() {
-	List<OAuth2TokenValidator<Jwt>> validators = List
-		.of(new JwtTimestampValidator(),
-			new JwtIssuerValidator(issuer));
-	return new DelegatingOAuth2TokenValidator<>(
-		validators);
+	List<OAuth2TokenValidator<Jwt>> validators = List.of(
+		new JwtTimestampValidator(), new JwtIssuerValidator(issuer));
+	return new DelegatingOAuth2TokenValidator<>(validators);
     }
 
     @Bean
     JwtDecoder jwtDecoder() {
-	SecretKey secretKey = new SecretKeySpec(
-		secret.getBytes(), "HMACSHA256");
-	NimbusJwtDecoder decoder = NimbusJwtDecoder
-		.withSecretKey(secretKey)
+	SecretKey secretKey = new SecretKeySpec(secret.getBytes(),
+		"HMACSHA256");
+	NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(secretKey)
 		.macAlgorithm(MacAlgorithm.HS256).build();
 	decoder.setJwtValidator(tokenValidator());
 	return decoder;
@@ -102,14 +95,12 @@ class SecurityConfig {
     @Bean
     JwtProvider jwtProvider() {
 	Algorithm algorithm = Algorithm.HMAC256(secret);
-	return new JwtProvider(issuer, expiration,
-		algorithm);
+	return new JwtProvider(issuer, expiration, algorithm);
     }
 
     @Bean
     SecurityHelper securityHelper() {
-	return new SecurityHelper(jwtProvider(),
-		new BCryptPasswordEncoder());
+	return new SecurityHelper(jwtProvider(), new BCryptPasswordEncoder());
     }
 
 }
