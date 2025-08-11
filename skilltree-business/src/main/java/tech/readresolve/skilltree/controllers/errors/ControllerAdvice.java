@@ -57,10 +57,9 @@ final class ControllerAdvice extends ResponseEntityExceptionHandler {
     private static ValidationErrors toValidationErrors(
 	    List<ObjectError> objectErrors, List<FieldError> fieldErrors) {
 	ValidationErrors errors = new ValidationErrors();
-	objectErrors
-		.forEach((e) -> errors.addGlobalError(e.getDefaultMessage()));
-	fieldErrors.forEach((e) -> errors.addFieldError(e.getField(),
-		e.getDefaultMessage()));
+	objectErrors.forEach(e -> errors.addGlobalError(e.getDefaultMessage()));
+	fieldErrors.forEach(
+		e -> errors.addFieldError(e.getField(), e.getDefaultMessage()));
 	return errors;
     }
 
