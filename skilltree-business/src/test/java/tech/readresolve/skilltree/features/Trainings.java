@@ -15,9 +15,9 @@ import tech.readresolve.skilltree.entities.Training;
 @DisplayName("Trainings features tests")
 class Trainings extends BaseIntegrationTests {
 
-    private final static String PATH = "/csv/features/trainings/";
+    private static final String PATH = "/csv/features/trainings/";
 
-    private final static String TRAINING_BY_NAME = """
+    private static final String TRAINING_BY_NAME = """
     	select t from Training t
     		join fetch t.certification c
     			where t.name = '%s'
@@ -25,8 +25,8 @@ class Trainings extends BaseIntegrationTests {
 
     @DisplayName("Should create a new training")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "create.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldCreateTraining(String json) throws Exception {
 	perform("POST", "/trainings", "admin", json)
 		.andExpect(status().is(204));

@@ -14,7 +14,7 @@ import tech.readresolve.skilltree.repositories.BaseRepository;
 @Transactional(readOnly = true)
 abstract class BaseService {
 
-    private final static String NOT_FOUND_MSG = "resource not found with id '%s'";
+    private static final String NOT_FOUND_MSG = "resource not found with id '%s'";
 
     @Autowired
     private SecurityHelper security;

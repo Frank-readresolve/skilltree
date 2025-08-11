@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jayway.jsonpath.JsonPath;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 @Transactional
 public class BaseIntegrationTests extends BaseMvcTests {
 
-    private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
 	    .ofPattern("yyyy-MM-dd");
 
     @PersistenceContext

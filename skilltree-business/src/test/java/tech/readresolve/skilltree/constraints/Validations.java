@@ -18,7 +18,7 @@ import tech.readresolve.skilltree.Interpolator;
 @ControllerMocks
 class Validations extends BaseMvcTests {
 
-    private final static String PATH = "/csv/constraints/validations/";
+    private static final String PATH = "/csv/constraints/validations/";
 
     @DisplayName("Should inputs be not valid (422) with specific error code")
     @ParameterizedTest

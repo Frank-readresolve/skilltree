@@ -22,18 +22,18 @@ import tech.readresolve.skilltree.entities.Trainer;
 @DisplayName("Accounts features tests")
 class Accounts extends BaseIntegrationTests {
 
-    private final static String PATH = "/csv/features/accounts/";
+    private static final String PATH = "/csv/features/accounts/";
 
-    private final static Pattern TRAINER_CODE_PATTERN = Pattern
+    private static final Pattern TRAINER_CODE_PATTERN = Pattern
 	    .compile("^FO[0-9]{8}$");
 
-    private final static String TRAINER_BY_USERNAME = """
+    private static final String TRAINER_BY_USERNAME = """
     	select t from Trainer t
     		join fetch t.account a join fetch a.role r
     			where a.username = '%s'
     	""";
 
-    private final static String ACCOUNT_BY_USERNAME = """
+    private static final String ACCOUNT_BY_USERNAME = """
     	select a from Account a
     		join fetch a.role r
     			where a.username = '%s'
@@ -41,8 +41,8 @@ class Accounts extends BaseIntegrationTests {
 
     @DisplayName("Should sign-in and return valid token and auth info")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "sign-in.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "sign-in.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldSignIn(String json) throws Exception {
 	var result = perform("POST", "/accounts/sign-in", "anonymous", json)
 		.andExpect(status().is(200)).andReturn();
@@ -66,8 +66,8 @@ class Accounts extends BaseIntegrationTests {
 
     @DisplayName("Should create a new (default trainer) account")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "create.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldCreateAccount(String json) throws Exception {
 	perform("POST", "/accounts", "admin", json).andExpect(status().is(204));
 	var username = JsonPath.read(json, "$.username");

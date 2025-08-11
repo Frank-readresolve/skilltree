@@ -17,9 +17,9 @@ import tech.readresolve.skilltree.entities.Certification;
 @DisplayName("Certifications features tests")
 class Certifications extends BaseIntegrationTests {
 
-    private final static String PATH = "/csv/features/certifications/";
+    private static final String PATH = "/csv/features/certifications/";
 
-    private final static String CERTIFICATION_BY_CODE = """
+    private static final String CERTIFICATION_BY_CODE = """
     	select c from Certification c
     		join fetch c.level l
     			where c.code = '%s'
@@ -27,8 +27,8 @@ class Certifications extends BaseIntegrationTests {
 
     @DisplayName("Should create a new certification")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "create.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldCreateCertification(String json) throws Exception {
 	var interpolated = Interpolator.interpolate(json);
 	perform("POST", "/certifications", "admin", interpolated)

@@ -13,9 +13,9 @@ import tech.readresolve.skilltree.entities.Skill;
 @DisplayName("Skills features tests")
 class Skills extends BaseIntegrationTests {
 
-    private final static String PATH = "/csv/features/skills/";
+    private static final String PATH = "/csv/features/skills/";
 
-    private final static String SKILL_BY_CODE = """
+    private static final String SKILL_BY_CODE = """
     	select s from Skill s
     		join fetch s.activity a
     			where s.code = '%s'
@@ -23,8 +23,8 @@ class Skills extends BaseIntegrationTests {
 
     @DisplayName("Should create a new skill")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "create.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldCreateSkill(String json) throws Exception {
 	perform("POST", "/skills", "admin", json).andExpect(status().is(204));
 	var skill = findEntity(Skill.class, SKILL_BY_CODE,

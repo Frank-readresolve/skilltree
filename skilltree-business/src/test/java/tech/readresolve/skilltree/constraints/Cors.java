@@ -18,9 +18,9 @@ class Cors extends BaseMvcTests {
     @Value("${skilltree.cors.allowedOrigins}")
     private String[] allowedOrigins;
 
-    private final static String PATH = "/csv/constraints/cors/";
+    private static final String PATH = "/csv/constraints/cors/";
 
-    private final static String END_POINTS = PATH + "endpoints.csv";
+    private static final String END_POINTS = PATH + "endpoints.csv";
 
     @DisplayName("Should CORS request be accepted")
     @ParameterizedTest

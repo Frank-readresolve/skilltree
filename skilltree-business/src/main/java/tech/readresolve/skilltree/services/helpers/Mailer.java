@@ -1,7 +1,5 @@
 package tech.readresolve.skilltree.services.helpers;
 
-import jakarta.mail.internet.MimeMessage;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,10 +8,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import jakarta.mail.internet.MimeMessage;
+
 @Component
 public class Mailer {
 
-    private final static Log LOGGER = LogFactory.getLog(Mailer.class);
+    private static final Log LOGGER = LogFactory.getLog(Mailer.class);
 
     @Value("${skilltree.mail.reply-to}")
     private String replyTo;

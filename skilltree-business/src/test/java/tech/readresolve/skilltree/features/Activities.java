@@ -13,9 +13,9 @@ import tech.readresolve.skilltree.entities.Activity;
 @DisplayName("Activities features tests")
 class Activities extends BaseIntegrationTests {
 
-    private final static String PATH = "/csv/features/activities/";
+    private static final String PATH = "/csv/features/activities/";
 
-    private final static String ACTIVITY_BY_CODE = """
+    private static final String ACTIVITY_BY_CODE = """
     	select a from Activity a
     		join fetch a.certification c
     			where a.code = '%s'
@@ -23,8 +23,8 @@ class Activities extends BaseIntegrationTests {
 
     @DisplayName("Should create a new activity")
     @ParameterizedTest
-    @CsvFileSource(resources = PATH + "create.csv", numLinesToSkip = 1,
-	    delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    @CsvFileSource(resources = PATH
+	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
     void shouldCreateActivity(String json) throws Exception {
 	perform("POST", "/activities", "admin", json)
 		.andExpect(status().is(204));

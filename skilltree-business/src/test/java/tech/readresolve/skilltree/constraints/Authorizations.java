@@ -14,9 +14,9 @@ import tech.readresolve.skilltree.ControllerMocks;
 @ControllerMocks
 class Authorizations extends BaseMvcTests {
 
-    private final static String PATH = "/csv/constraints/authorizations/";
+    private static final String PATH = "/csv/constraints/authorizations/";
 
-    private final static String END_POINTS = PATH + "endpoints.csv";
+    private static final String END_POINTS = PATH + "endpoints.csv";
 
     @DisplayName("Should access be denied with expected status")
     @ParameterizedTest
