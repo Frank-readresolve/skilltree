@@ -33,6 +33,7 @@ class ActivitiesIT extends BaseIntegrationTests {
 		assertThat(activity).isNotNull();
 		assertThat(activity.getCertification().getId())
 				.isEqualTo(asLong(json, "$.certificationId"));
+		assertThat(activity.getCode()).isEqualTo(asString(json, "$.code"));
 		assertThat(activity.getName()).isEqualTo(asString(json, "$.name"));
 		assertThat(activity.getDescription())
 				.isEqualTo(asString(json, "$.description"));
