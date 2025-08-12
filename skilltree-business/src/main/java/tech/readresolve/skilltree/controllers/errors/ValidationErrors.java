@@ -27,12 +27,8 @@ final class ValidationErrors {
 	}
 
 	private Collection<ValidationError> init(String name) {
-		Collection<ValidationError> errors = fields.get(name);
-		if (errors == null) {
-			errors = new ArrayList<>();
-			fields.put(name, errors);
-		}
-		return errors;
+		return fields.computeIfAbsent(name,
+				k -> new ArrayList<ValidationError>());
 	}
 
 	public Collection<ValidationError> getGlobals() {
