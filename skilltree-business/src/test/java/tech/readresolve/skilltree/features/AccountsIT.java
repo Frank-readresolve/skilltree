@@ -93,6 +93,7 @@ class AccountsIT extends BaseIntegrationTests {
 		var role = account.getRole();
 		assertThat(role).isNotNull();
 		assertThat(role.getCode()).isEqualTo("ROLE_TRAINER");
+		assertThat(role.getName()).isEqualTo("Formateur");
 	}
 
 	@DisplayName("Should reset an account password")
