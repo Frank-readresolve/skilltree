@@ -64,6 +64,15 @@ class AccountsIT extends BaseIntegrationTests {
 				.isEqualTo(account.getRole().getCode());
 	}
 
+	@DisplayName("Should not sign-in and return 401")
+	@ParameterizedTest
+	@CsvFileSource(resources = PATH
+			+ "sign-in-rejected.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+	void shouldNotSignIn(String json) throws Exception {
+		perform("POST", "/accounts/sign-in", "anonymous", json)
+				.andExpect(status().isUnauthorized());
+	}
+
 	@DisplayName("Should create a new (default trainer) account")
 	@ParameterizedTest
 	@CsvFileSource(resources = PATH
