@@ -20,6 +20,7 @@ POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" 
 POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" : "a", "acronym" : "a", "startYear" : 2018, "description" : null}§acronym§E_MUST_BE_SIZE_INCLUDED[2,4]
 POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" : "a", "acronym" : "aaaaa", "startYear" : 2018, "description" : null}§acronym§E_MUST_BE_SIZE_INCLUDED[2,4]
 
+POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" : "a", "acronym" : "aa", "startYear" : null, "description" : null}§startYear§E_MUST_BE_NOT_NULL
 POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" : "a", "acronym" : "aa", "startYear" : 2017, "description" : null}§startYear§E_CERTIFICATION_YEAR
 POST§/certifications§admin§{"certificationLevelId" : 0, "code" : "a", "name" : "a", "acronym" : "aa", "startYear" : ${yearPlusOne()}, "description" : null}§startYear§E_CERTIFICATION_YEAR
 
