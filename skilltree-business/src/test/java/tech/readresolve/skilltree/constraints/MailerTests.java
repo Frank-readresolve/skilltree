@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tech.readresolve.skilltree.BaseMvcTests;
 import tech.readresolve.skilltree.services.helpers.Mailer;
+import tech.readresolve.skilltree.services.helpers.MailerException;
 
 @DisplayName("Tests mailer against SMTP constraints")
 class MailerTests extends BaseMvcTests {
@@ -19,9 +20,9 @@ class MailerTests extends BaseMvcTests {
 	@DisplayName("Should mail be rejected")
 	@Test
 	void shouldNotSendMail() {
-		assertThrowsExactly(RuntimeException.class, () -> mailer
+		assertThrowsExactly(MailerException.class, () -> mailer
 				.sendAccountCreated("toto@localhost", "Toto", "xxx"));
-		assertThrowsExactly(RuntimeException.class, () -> mailer
+		assertThrowsExactly(MailerException.class, () -> mailer
 				.sendResetPassword("toto@localhost", "Toto", "xxx"));
 	}
 

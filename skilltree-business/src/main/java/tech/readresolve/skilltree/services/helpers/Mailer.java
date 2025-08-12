@@ -51,7 +51,7 @@ public class Mailer {
 			helper.setText(mail.content(), true);
 			sender.send(message);
 		} catch (Exception ex) {
-			throw new RuntimeException(
+			throw new MailerException(
 					String.format("Error sending (async) mail '%s'", mail), ex);
 		}
 	}
