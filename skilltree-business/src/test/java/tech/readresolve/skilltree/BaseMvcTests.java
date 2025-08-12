@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 @SpringBootTest(classes = SkillTree.class)
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
-public class BaseMvcTests {
+public abstract class BaseMvcTests {
 
 	protected static final char DELIMITER = '§';
 
