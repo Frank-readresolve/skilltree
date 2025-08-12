@@ -32,6 +32,7 @@ class SkillsIT extends BaseIntegrationTests {
 		assertThat(skill).isNotNull();
 		assertThat(skill.getActivity().getId())
 				.isEqualTo(asLong(json, "$.activityId"));
+		assertThat(skill.getCode()).isEqualTo(asString(json, "$.code"));
 		assertThat(skill.getName()).isEqualTo(asString(json, "$.name"));
 		assertThat(skill.getDescription())
 				.isEqualTo(asString(json, "$.description"));
