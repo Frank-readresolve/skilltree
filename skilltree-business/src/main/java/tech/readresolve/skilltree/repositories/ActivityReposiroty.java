@@ -10,9 +10,9 @@ import tech.readresolve.skilltree.entities.Activity;
 @Repository
 public interface ActivityReposiroty extends BaseRepository<Activity> {
 
-    boolean existsByCodeIgnoreCase(String value);
+	boolean existsByCodeIgnoreCase(String value);
 
-    Collection<ActivityLabelValue> findAllProjectedByCertificationIdOrderByCode(
-	    Long certificationId);
+	Collection<ActivityLabelValue> findAllProjectedByCertificationIdOrderByCode(
+			Long certificationId);
 
 }

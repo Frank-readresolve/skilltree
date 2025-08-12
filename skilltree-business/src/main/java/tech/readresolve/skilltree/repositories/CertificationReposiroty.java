@@ -10,8 +10,8 @@ import tech.readresolve.skilltree.entities.Certification;
 @Repository
 public interface CertificationReposiroty extends BaseRepository<Certification> {
 
-    boolean existsByCodeIgnoreCase(String value);
+	boolean existsByCodeIgnoreCase(String value);
 
-    Collection<CertificationLabelValue> findAllProjectedByOrderByNameAscCode();
+	Collection<CertificationLabelValue> findAllProjectedByOrderByNameAscCode();
 
 }

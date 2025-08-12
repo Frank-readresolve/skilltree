@@ -7,6 +7,6 @@ import tech.readresolve.skilltree.entities.Skill;
 @Repository
 public interface SkillReposiroty extends BaseRepository<Skill> {
 
-    boolean existsByCodeIgnoreCase(String value);
+	boolean existsByCodeIgnoreCase(String value);
 
 }

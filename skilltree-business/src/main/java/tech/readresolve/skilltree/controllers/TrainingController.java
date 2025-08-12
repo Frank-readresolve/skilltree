@@ -16,16 +16,16 @@ import tech.readresolve.skilltree.services.TrainingService;
 @RequestMapping("/trainings")
 public class TrainingController {
 
-    private final TrainingService service;
+	private final TrainingService service;
 
-    TrainingController(TrainingService service) {
-	this.service = service;
-    }
+	TrainingController(TrainingService service) {
+		this.service = service;
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody @Valid TrainingCreate inputs) {
-	service.create(inputs);
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void create(@RequestBody @Valid TrainingCreate inputs) {
+		service.create(inputs);
+	}
 
 }

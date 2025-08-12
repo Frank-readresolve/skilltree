@@ -13,13 +13,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 public class SkillTree {
 
-    public static void main(String[] args) {
-	SpringApplication.run(SkillTree.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(SkillTree.class, args);
+	}
 
-    @Bean
-    CacheManager cacheManager() {
-	return new ConcurrentMapCacheManager("default-cache");
-    }
+	@Bean
+	CacheManager cacheManager() {
+		return new ConcurrentMapCacheManager("default-cache");
+	}
 
 }

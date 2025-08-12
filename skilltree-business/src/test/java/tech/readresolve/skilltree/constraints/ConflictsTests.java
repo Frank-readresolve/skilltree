@@ -16,23 +16,23 @@ import tech.readresolve.skilltree.services.helpers.Mailer;
 @Transactional
 class ConflictsTests extends BaseMvcTests {
 
-    private static final String PATH = "/csv/constraints/conflicts/";
+	private static final String PATH = "/csv/constraints/conflicts/";
 
-    @MockitoBean
-    private Mailer mailer;
+	@MockitoBean
+	private Mailer mailer;
 
-    @MockitoBean
-    private LocalValidatorFactoryBean validator;
+	@MockitoBean
+	private LocalValidatorFactoryBean validator;
 
-    @DisplayName("Should inputs be conflicting and return 409")
-    @ParameterizedTest
-    @CsvFileSource(resources = { PATH + "account-create.csv",
-	    PATH + "activity-create.csv", PATH + "certification-create.csv",
-	    PATH + "skill-create.csv",
-	    PATH + "training-create.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldBeConflicting(String method, String path, String tokenName,
-	    String json) throws Exception {
-	perform(method, path, tokenName, json).andExpect(status().is(409));
-    }
+	@DisplayName("Should inputs be conflicting and return 409")
+	@ParameterizedTest
+	@CsvFileSource(resources = { PATH + "account-create.csv",
+			PATH + "activity-create.csv", PATH + "certification-create.csv",
+			PATH + "skill-create.csv",
+			PATH + "training-create.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+	void shouldBeConflicting(String method, String path, String tokenName,
+			String json) throws Exception {
+		perform(method, path, tokenName, json).andExpect(status().is(409));
+	}
 
 }

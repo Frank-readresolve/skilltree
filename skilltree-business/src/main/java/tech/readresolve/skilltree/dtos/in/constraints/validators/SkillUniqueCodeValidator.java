@@ -6,20 +6,20 @@ import tech.readresolve.skilltree.dtos.in.constraints.SkillUniqueCode;
 import tech.readresolve.skilltree.repositories.SkillReposiroty;
 
 public final class SkillUniqueCodeValidator
-	extends BaseConstraintValidator<SkillUniqueCode, String> {
+		extends BaseConstraintValidator<SkillUniqueCode, String> {
 
-    private final SkillReposiroty skills;
+	private final SkillReposiroty skills;
 
-    SkillUniqueCodeValidator(SkillReposiroty skills) {
-	this.skills = skills;
-    }
-
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-	if (value == null) {
-	    return true;
+	SkillUniqueCodeValidator(SkillReposiroty skills) {
+		this.skills = skills;
 	}
-	return !skills.existsByCodeIgnoreCase(value);
-    }
+
+	@Override
+	public boolean isValid(String value, ConstraintValidatorContext context) {
+		if (value == null) {
+			return true;
+		}
+		return !skills.existsByCodeIgnoreCase(value);
+	}
 
 }

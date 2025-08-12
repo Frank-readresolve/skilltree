@@ -7,6 +7,6 @@ import tech.readresolve.skilltree.entities.BaseEntity;
 
 @NoRepositoryBean
 public interface BaseRepository<T extends BaseEntity>
-	extends JpaRepository<T, Long> {
-    //
+		extends JpaRepository<T, Long> {
+	//
 }

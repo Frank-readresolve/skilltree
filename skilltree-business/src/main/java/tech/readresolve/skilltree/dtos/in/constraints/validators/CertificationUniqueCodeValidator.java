@@ -6,20 +6,20 @@ import tech.readresolve.skilltree.dtos.in.constraints.CertificationUniqueCode;
 import tech.readresolve.skilltree.repositories.CertificationReposiroty;
 
 public final class CertificationUniqueCodeValidator
-	extends BaseConstraintValidator<CertificationUniqueCode, String> {
+		extends BaseConstraintValidator<CertificationUniqueCode, String> {
 
-    private final CertificationReposiroty certifications;
+	private final CertificationReposiroty certifications;
 
-    CertificationUniqueCodeValidator(CertificationReposiroty certifications) {
-	this.certifications = certifications;
-    }
-
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-	if (value == null) {
-	    return true;
+	CertificationUniqueCodeValidator(CertificationReposiroty certifications) {
+		this.certifications = certifications;
 	}
-	return !certifications.existsByCodeIgnoreCase(value);
-    }
+
+	@Override
+	public boolean isValid(String value, ConstraintValidatorContext context) {
+		if (value == null) {
+			return true;
+		}
+		return !certifications.existsByCodeIgnoreCase(value);
+	}
 
 }

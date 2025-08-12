@@ -16,16 +16,16 @@ import tech.readresolve.skilltree.services.ActivityService;
 @RequestMapping("/activities")
 public class ActivityController {
 
-    private final ActivityService service;
+	private final ActivityService service;
 
-    ActivityController(ActivityService service) {
-	this.service = service;
-    }
+	ActivityController(ActivityService service) {
+		this.service = service;
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody @Valid ActivityCreate inputs) {
-	service.create(inputs);
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void create(@RequestBody @Valid ActivityCreate inputs) {
+		service.create(inputs);
+	}
 
 }

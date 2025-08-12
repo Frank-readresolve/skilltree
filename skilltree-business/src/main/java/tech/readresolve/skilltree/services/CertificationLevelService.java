@@ -11,15 +11,15 @@ import tech.readresolve.skilltree.repositories.CertificationLevelRepository;
 @Service
 public class CertificationLevelService extends BaseService {
 
-    private final CertificationLevelRepository levels;
+	private final CertificationLevelRepository levels;
 
-    CertificationLevelService(CertificationLevelRepository levels) {
-	this.levels = levels;
-    }
+	CertificationLevelService(CertificationLevelRepository levels) {
+		this.levels = levels;
+	}
 
-    @Cacheable("default-cache")
-    public Collection<CertificationLevelLabelValue> labelValues() {
-	return levels.findAllProjectedByOrderByEuropeanLevel();
-    }
+	@Cacheable("default-cache")
+	public Collection<CertificationLevelLabelValue> labelValues() {
+		return levels.findAllProjectedByOrderByEuropeanLevel();
+	}
 
 }

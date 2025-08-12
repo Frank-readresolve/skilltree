@@ -17,10 +17,10 @@ import tech.readresolve.skilltree.dtos.in.constraints.validators.TrainingDatesCo
 @Constraint(validatedBy = TrainingDatesConsistentValidator.class)
 public @interface TrainingDatesConsistent {
 
-    String message() default "{skilltree.validation.constraints.TrainingDatesConsistent.message}";
+	String message() default "{skilltree.validation.constraints.TrainingDatesConsistent.message}";
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 
 }

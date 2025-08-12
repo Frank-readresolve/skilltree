@@ -13,15 +13,15 @@ import tech.readresolve.skilltree.services.CertificationLevelService;
 @RequestMapping("/certification-levels")
 public class CertificationLevelController {
 
-    private final CertificationLevelService service;
+	private final CertificationLevelService service;
 
-    CertificationLevelController(CertificationLevelService service) {
-	this.service = service;
-    }
+	CertificationLevelController(CertificationLevelService service) {
+		this.service = service;
+	}
 
-    @GetMapping("/label-values")
-    Collection<CertificationLevelLabelValue> labelValues() {
-	return service.labelValues();
-    }
+	@GetMapping("/label-values")
+	Collection<CertificationLevelLabelValue> labelValues() {
+		return service.labelValues();
+	}
 
 }

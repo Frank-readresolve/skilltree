@@ -24,32 +24,32 @@ import tech.readresolve.skilltree.services.AccountService;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    private final AccountService service;
+	private final AccountService service;
 
-    AccountController(AccountService service) {
-	this.service = service;
-    }
+	AccountController(AccountService service) {
+		this.service = service;
+	}
 
-    @PostMapping("/sign-in")
-    AuthInfo signIn(@RequestBody @Valid SignIn inputs) {
-	return service.signIn(inputs);
-    }
+	@PostMapping("/sign-in")
+	AuthInfo signIn(@RequestBody @Valid SignIn inputs) {
+		return service.signIn(inputs);
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody @Valid AccountCreate inputs) {
-	service.create(inputs);
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void create(@RequestBody @Valid AccountCreate inputs) {
+		service.create(inputs);
+	}
 
-    @PatchMapping("/{id}/password")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void resetPassword(@PathVariable("id") Long id) {
-	service.resetPassword(id);
-    }
+	@PatchMapping("/{id}/password")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void resetPassword(@PathVariable("id") Long id) {
+		service.resetPassword(id);
+	}
 
-    @GetMapping
-    Collection<AccountView> views() {
-	return service.views();
-    }
+	@GetMapping
+	Collection<AccountView> views() {
+		return service.views();
+	}
 
 }

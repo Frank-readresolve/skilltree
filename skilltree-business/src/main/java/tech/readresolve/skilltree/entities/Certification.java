@@ -14,97 +14,97 @@ import jakarta.persistence.Table;
 @Table(name = "t_certifications")
 public class Certification extends BaseEntity {
 
-    @Column(name = "code")
-    private String code;
+	@Column(name = "code")
+	private String code;
 
-    @Column(name = "certification_name")
-    private String name;
+	@Column(name = "certification_name")
+	private String name;
 
-    @Column(name = "acronym")
-    private String acronym;
+	@Column(name = "acronym")
+	private String acronym;
 
-    @Column(name = "start_year")
-    private Year startYear;
+	@Column(name = "start_year")
+	private Year startYear;
 
-    @Column(name = "description")
-    private String description;
+	@Column(name = "description")
+	private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "certification_level_id", updatable = false)
-    private CertificationLevel level;
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "certification_level_id", updatable = false)
+	private CertificationLevel level;
 
-    public Certification() {
-	// Required no-arg constructor
-    }
-
-    public String getCode() {
-	return code;
-    }
-
-    public void setCode(String code) {
-	this.code = code;
-    }
-
-    public String getName() {
-	return name;
-    }
-
-    public void setName(String name) {
-	this.name = name;
-    }
-
-    public String getAcronym() {
-	return acronym;
-    }
-
-    public void setAcronym(String acronym) {
-	this.acronym = acronym;
-    }
-
-    public Year getStartYear() {
-	return startYear;
-    }
-
-    public void setStartYear(Year year) {
-	startYear = year;
-    }
-
-    public String getDescription() {
-	return description;
-    }
-
-    public void setDescription(String description) {
-	this.description = description;
-    }
-
-    public CertificationLevel getLevel() {
-	return level;
-    }
-
-    public void setLevel(CertificationLevel level) {
-	this.level = level;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
+	public Certification() {
+		// Required no-arg constructor
 	}
-	return obj instanceof Certification other
-		&& Objects.equals(code, other.code);
-    }
 
-    @Override
-    public int hashCode() {
-	return Objects.hash(code);
-    }
+	public String getCode() {
+		return code;
+	}
 
-    @Override
-    public String toString() {
-	return String.format(
-		"{id=%s, code=%s, name=%s, acronym=%s, "
-			+ "startYear=%s, description=%s, level=%s}",
-		getId(), code, name, acronym, startYear, description, level);
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAcronym() {
+		return acronym;
+	}
+
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
+	public Year getStartYear() {
+		return startYear;
+	}
+
+	public void setStartYear(Year year) {
+		startYear = year;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public CertificationLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(CertificationLevel level) {
+		this.level = level;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		return obj instanceof Certification other
+				&& Objects.equals(code, other.code);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(code);
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+				"{id=%s, code=%s, name=%s, acronym=%s, "
+						+ "startYear=%s, description=%s, level=%s}",
+				getId(), code, name, acronym, startYear, description, level);
+	}
 
 }

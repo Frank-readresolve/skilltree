@@ -9,6 +9,6 @@ import tech.readresolve.skilltree.entities.Role;
 @Repository
 public interface RoleRepository extends BaseRepository<Role> {
 
-    Optional<Role> findByCode(String value);
+	Optional<Role> findByCode(String value);
 
 }

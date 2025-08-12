@@ -16,16 +16,16 @@ import tech.readresolve.skilltree.services.SkillService;
 @RequestMapping("/skills")
 public class SkillController {
 
-    private final SkillService service;
+	private final SkillService service;
 
-    SkillController(SkillService service) {
-	this.service = service;
-    }
+	SkillController(SkillService service) {
+		this.service = service;
+	}
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void create(@RequestBody @Valid SkillCreate inputs) {
-	service.create(inputs);
-    }
+	@PostMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	void create(@RequestBody @Valid SkillCreate inputs) {
+		service.create(inputs);
+	}
 
 }
