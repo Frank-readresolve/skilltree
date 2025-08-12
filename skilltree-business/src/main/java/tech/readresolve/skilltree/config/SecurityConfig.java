@@ -26,6 +26,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
+import jakarta.annotation.PostConstruct;
+
 @Configuration
 class SecurityConfig {
 
@@ -86,15 +88,13 @@ class SecurityConfig {
 		return decoder;
 	}
 
-	@Bean
-	JwtProvider jwtProvider() {
+	@PostConstruct
+	void initSecurityHelper() {
 		Algorithm algorithm = Algorithm.HMAC256(secret);
-		return new JwtProvider(issuer, expiration, algorithm);
-	}
-
-	@Bean
-	SecurityHelper securityHelper() {
-		return new SecurityHelper(jwtProvider(), new BCryptPasswordEncoder());
+		JwtProvider jwtProvider = new JwtProvider(issuer, expiration,
+				algorithm);
+		SecurityHelper.getInstance().init(jwtProvider,
+				new BCryptPasswordEncoder());
 	}
 
 }

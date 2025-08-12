@@ -3,7 +3,6 @@ package tech.readresolve.skilltree.services;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import tech.readresolve.skilltree.config.SecurityHelper;
@@ -16,15 +15,12 @@ abstract class BaseService {
 
 	private static final String NOT_FOUND_MSG = "resource not found with id '%s'";
 
-	@Autowired
-	private SecurityHelper security;
-
 	BaseService() {
 		//
 	}
 
-	protected final SecurityHelper security() {
-		return security;
+	protected static final SecurityHelper security() {
+		return SecurityHelper.getInstance();
 	}
 
 	protected static <T extends BaseEntity> void existsByIdOrNotFound(

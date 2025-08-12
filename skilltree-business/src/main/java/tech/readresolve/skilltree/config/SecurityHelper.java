@@ -7,7 +7,26 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public record SecurityHelper(JwtProvider jwt, PasswordEncoder encoder) {
+public final class SecurityHelper {
+
+	private static final SecurityHelper INSTANCE = new SecurityHelper();
+
+	private JwtProvider jwt;
+
+	private PasswordEncoder encoder;
+
+	private SecurityHelper() {
+		//
+	}
+
+	public static SecurityHelper getInstance() {
+		return INSTANCE;
+	}
+
+	void init(JwtProvider jwt, PasswordEncoder encoder) {
+		this.jwt = jwt;
+		this.encoder = encoder;
+	}
 
 	public String createToken(String subject, List<String> roles) {
 		return jwt.create(subject, roles);
@@ -21,8 +40,7 @@ public record SecurityHelper(JwtProvider jwt, PasswordEncoder encoder) {
 		return encoder.matches(rawPassword, encodedPassword);
 	}
 
-	@SuppressWarnings("static-method")
-	public SecurityContext securityContext() {
+	public static SecurityContext securityContext() {
 		return SecurityContextHolder.getContext();
 	}
 
