@@ -89,8 +89,9 @@ public class Account extends BaseEntity {
 
 	@Override
 	public String toString() {
+		// DO NOT OUTPUT password!
 		return String.format(
-				"{id=%s, username=%s, password=[PROTECTED], "
+				"{id=%s, username=%s, [PROTECTED], "
 						+ "firstname=%s, lastname=%s, role=[LAZY_LOADED]}",
 				getId(), username, firstname, lastname);
 	}
