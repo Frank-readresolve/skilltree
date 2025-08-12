@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @ConditionalOnProperty(value = "skilltree.cors.enabled", havingValue = "true", matchIfMissing = true)
-class CustomWebMvcConfigurer implements WebMvcConfigurer {
+class CorsConfig implements WebMvcConfigurer {
 
 	@Value("${skilltree.cors.allowedOrigins}")
 	private String[] allowedOrigins;

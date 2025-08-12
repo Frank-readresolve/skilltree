@@ -1,7 +1,5 @@
 package tech.readresolve.skilltree.services.helpers;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -12,8 +10,6 @@ import jakarta.mail.internet.MimeMessage;
 
 @Component
 public class Mailer {
-
-	private static final Log LOGGER = LogFactory.getLog(Mailer.class);
 
 	@Value("${skilltree.mail.reply-to}")
 	private String replyTo;
@@ -55,8 +51,8 @@ public class Mailer {
 			helper.setText(mail.content(), true);
 			sender.send(message);
 		} catch (Exception ex) {
-			LOGGER.error(String.format("Error sending async mail to '%s'",
-					mail.to()), ex);
+			throw new RuntimeException(
+					String.format("Error sending (async) mail '%s'", mail), ex);
 		}
 	}
 
