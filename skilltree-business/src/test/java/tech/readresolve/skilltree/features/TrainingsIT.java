@@ -35,6 +35,7 @@ class TrainingsIT extends BaseIntegrationTests {
 		assertThat(training).isNotNull();
 		assertThat(training.getCertification().getId())
 				.isEqualTo(asLong(json, "$.certificationId"));
+		assertThat(training.getName()).isEqualTo(asString(json, "$.name"));
 		assertThat(training.getStartDate())
 				.isEqualTo(asLocalDate(json, "$.startDate"));
 		assertThat(training.getEndDate())
