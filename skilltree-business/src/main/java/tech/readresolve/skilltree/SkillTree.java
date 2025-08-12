@@ -8,11 +8,14 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
+
 @SpringBootApplication
 @EnableAsync
 @EnableCaching
 public class SkillTree {
 
+	@ExcludeFromJacocoGeneratedReport
 	public static void main(String[] args) {
 		SpringApplication.run(SkillTree.class, args);
 	}

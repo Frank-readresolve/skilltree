@@ -2,13 +2,14 @@ package tech.readresolve.skilltree.entities;
 
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Immutable;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
 
 @Entity
 @Table(name = "t_certification_levels")
@@ -38,6 +39,7 @@ public class CertificationLevel extends BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setCode(String code) {
 		// Not insertable/updatable
 		this.code = code;
@@ -48,6 +50,7 @@ public class CertificationLevel extends BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setFrenchLevel(String level) {
 		// Not insertable/updatable
 		frenchLevel = level;
@@ -58,6 +61,7 @@ public class CertificationLevel extends BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setEuropeanLevel(String level) {
 		// Not insertable/updatable
 		europeanLevel = level;
@@ -68,6 +72,7 @@ public class CertificationLevel extends BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setEquivalence(String equivalence) {
 		// Not insertable/updatable
 		this.equivalence = equivalence;

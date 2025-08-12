@@ -4,6 +4,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
 
 @MappedSuperclass
 public abstract class BaseEntity {
@@ -21,6 +22,7 @@ public abstract class BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setId(Long id) {
 		// Prevents from accidental assignment (set by DB)
 		this.id = id;
