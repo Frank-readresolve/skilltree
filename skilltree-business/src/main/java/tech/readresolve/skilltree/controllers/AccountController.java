@@ -2,8 +2,6 @@ package tech.readresolve.skilltree.controllers;
 
 import java.util.Collection;
 
-import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import tech.readresolve.skilltree.dtos.in.AccountCreate;
 import tech.readresolve.skilltree.dtos.in.SignIn;
 import tech.readresolve.skilltree.dtos.out.AccountView;
@@ -43,8 +42,8 @@ public class AccountController {
 
 	@PatchMapping("/{id}/password")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void resetPassword(@PathVariable("id") Long id) {
-		service.resetPassword(id);
+	void resetPassword(@PathVariable("id") Long accountId) {
+		service.resetPassword(accountId);
 	}
 
 	@GetMapping

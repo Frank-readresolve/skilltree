@@ -29,7 +29,7 @@ class ValidationsTests extends BaseMvcTests {
 			PATH + "training-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
 	void shouldBeNotValid(String method, String path, String tokenName,
 			String json, String field, String error) throws Exception {
-		var jsonPath = (String) null;
+		String jsonPath;
 		if (null != field) { // Field error
 			jsonPath = String.format("$.errors.*.%s[*].code", field);
 		} else { // Global error

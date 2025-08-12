@@ -73,9 +73,9 @@ public class AccountService extends BaseService {
 	}
 
 	private Account toAccount(AccountCreate inputs, String rawPassword) {
+		Role role = roles.findByCode("ROLE_TRAINER")
+				.orElseThrow(IllegalStateException::new);
 		Account entity = new Account();
-		// Role is expected to be present in db, optional.get() is ok:
-		Role role = roles.findByCode("ROLE_TRAINER").get();
 		entity.setUsername(inputs.username());
 		entity.setRole(role);
 		entity.setFirstname(inputs.firstname());
