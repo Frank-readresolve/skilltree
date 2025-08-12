@@ -14,7 +14,7 @@ import tech.readresolve.skilltree.services.helpers.Mailer;
 
 @DisplayName("Tests inputs against database constraints")
 @Transactional
-class Conflicts extends BaseMvcTests {
+class ConflictsTests extends BaseMvcTests {
 
     private static final String PATH = "/csv/constraints/conflicts/";
 

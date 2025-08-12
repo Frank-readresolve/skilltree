@@ -10,16 +10,16 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import tech.readresolve.skilltree.BaseIntegrationTests;
 
-@DisplayName("Certification levels features tests")
-class CertificationLevels extends BaseIntegrationTests {
+@DisplayName("Certification levels features integration tests")
+class CertificationLevelsIT extends BaseIntegrationTests {
 
-    @DisplayName("Should return all certification levels")
-    @ParameterizedTest
-    @ValueSource(strings = { "admin", "trainer" })
-    void shouldReturnAllCertificationLevels(String tokenName) throws Exception {
-	perform("GET", "/certification-levels/label-values", tokenName)
-		.andExpect(status().is(200))
-		.andExpect(jsonPath("$.length()", is(1)));
-    }
+	@DisplayName("Should return all certification levels")
+	@ParameterizedTest
+	@ValueSource(strings = { "admin", "trainer" })
+	void shouldReturnAllCertificationLevels(String tokenName) throws Exception {
+		perform("GET", "/certification-levels/label-values", tokenName)
+				.andExpect(status().is(200))
+				.andExpect(jsonPath("$.length()", is(1)));
+	}
 
 }
