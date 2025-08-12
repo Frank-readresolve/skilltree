@@ -38,6 +38,8 @@ class CertificationsIT extends BaseIntegrationTests {
 		assertThat(certification).isNotNull();
 		assertThat(certification.getLevel().getId())
 				.isEqualTo(asLong(interpolated, "$.certificationLevelId"));
+		assertThat(certification.getCode())
+				.isEqualTo(asString(interpolated, "$.code"));
 		assertThat(certification.getName())
 				.isEqualTo(asString(interpolated, "$.name"));
 		assertThat(certification.getAcronym())
