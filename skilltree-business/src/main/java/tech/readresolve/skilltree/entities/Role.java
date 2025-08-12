@@ -33,6 +33,7 @@ public class Role extends BaseEntity {
 	}
 
 	@SuppressWarnings("unused")
+	@ExcludeFromJacocoGeneratedReport
 	private void setCode(String code) {
 		// Not insertable/updatable
 		this.code = code;
