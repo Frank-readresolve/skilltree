@@ -7,6 +7,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tech.readresolve.skilltree.config.AuthenticationHelper;
+import tech.readresolve.skilltree.config.SecurityContextUtil;
 import tech.readresolve.skilltree.dtos.in.AccountCreate;
 import tech.readresolve.skilltree.dtos.in.SignIn;
 import tech.readresolve.skilltree.dtos.out.AccountInfo;
@@ -24,6 +26,8 @@ import tech.readresolve.skilltree.services.helpers.PasswordUtil;
 @Service
 public class AccountService extends BaseService {
 
+	private final AuthenticationHelper authentication;
+
 	private final AccountReposiroty accounts;
 
 	private final RoleRepository roles;
@@ -32,8 +36,10 @@ public class AccountService extends BaseService {
 
 	private final Mailer mailer;
 
-	AccountService(AccountReposiroty accounts, RoleRepository roles,
+	AccountService(AuthenticationHelper authentication,
+			AccountReposiroty accounts, RoleRepository roles,
 			TrainerRepository trainers, Mailer mailer) {
+		this.authentication = authentication;
 		this.accounts = accounts;
 		this.roles = roles;
 		this.trainers = trainers;
@@ -46,12 +52,12 @@ public class AccountService extends BaseService {
 				.orElseThrow(() -> new BadCredentialsException(String
 						.format("no user found with username '%s'", username)));
 		String password = inputs.password();
-		if (!security().matches(password, entity.getPassword())) {
+		if (!authentication.matches(password, entity.getPassword())) {
 			throw new BadCredentialsException(String.format(
 					"passwords do not match for username '%s'", username));
 		}
 		String role = entity.getRole().getCode();
-		String token = security().createToken(username, List.of(role));
+		String token = authentication.createToken(username, List.of(role));
 		return new AuthInfo(token, new AccountInfo(role, entity.getFirstname(),
 				entity.getLastname()));
 	}
@@ -74,7 +80,7 @@ public class AccountService extends BaseService {
 		entity.setRole(role);
 		entity.setFirstname(inputs.firstname());
 		entity.setLastname(inputs.lastname());
-		String encoded = security().encode(rawPassword);
+		String encoded = authentication.encode(rawPassword);
 		entity.setPassword(encoded);
 		return entity;
 	}
@@ -88,7 +94,7 @@ public class AccountService extends BaseService {
 	}
 
 	public Collection<AccountView> views() {
-		String username = security().principal();
+		String username = SecurityContextUtil.principal();
 		return accounts.findAllProjectedBy(username);
 	}
 
@@ -96,7 +102,7 @@ public class AccountService extends BaseService {
 	public void resetPassword(Long id) {
 		Account entity = findByIdOrNotFound(accounts, id);
 		String rawPassword = PasswordUtil.randomPassword();
-		String encodedPassword = security().encode(rawPassword);
+		String encodedPassword = authentication.encode(rawPassword);
 		entity.setPassword(encodedPassword);
 		mailer.sendResetPassword(entity.getUsername(), entity.getFirstname(),
 				rawPassword); // async

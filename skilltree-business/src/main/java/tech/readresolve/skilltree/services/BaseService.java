@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import tech.readresolve.skilltree.config.SecurityHelper;
 import tech.readresolve.skilltree.controllers.errors.ResourceNotFoundException;
 import tech.readresolve.skilltree.entities.BaseEntity;
 import tech.readresolve.skilltree.repositories.BaseRepository;
@@ -17,10 +16,6 @@ abstract class BaseService {
 
 	BaseService() {
 		//
-	}
-
-	protected static final SecurityHelper security() {
-		return SecurityHelper.getInstance();
 	}
 
 	protected static <T extends BaseEntity> void existsByIdOrNotFound(
