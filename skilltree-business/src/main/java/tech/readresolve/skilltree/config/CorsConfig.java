@@ -15,8 +15,26 @@ class CorsConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins(allowedOrigins)
-				.allowedMethods("POST", "GET", "PUT", "PATCH", "DELETE");
+		registry.addMapping("/accounts").allowedMethods("POST", "GET")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/accounts/sign-in").allowedMethods("POST")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/accounts/{id}/password").allowedMethods("PATCH")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/activities").allowedMethods("POST")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/certifications").allowedMethods("POST")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/certifications/label-values")
+				.allowedMethods("GET").allowedOrigins(allowedOrigins);
+		registry.addMapping("/certifications/{id}/activities/label-values")
+				.allowedMethods("GET").allowedOrigins(allowedOrigins);
+		registry.addMapping("/certification-levels/label-values")
+				.allowedMethods("GET").allowedOrigins(allowedOrigins);
+		registry.addMapping("/skills").allowedMethods("POST")
+				.allowedOrigins(allowedOrigins);
+		registry.addMapping("/trainings").allowedMethods("POST")
+				.allowedOrigins(allowedOrigins);
 	}
 
 }
