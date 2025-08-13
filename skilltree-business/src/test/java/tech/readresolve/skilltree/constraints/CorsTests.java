@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import tech.readresolve.skilltree.BaseMvcTests;
 import tech.readresolve.skilltree.ControllerMocks;
 
-@DisplayName("Tests endpoints against CORS")
+@DisplayName("Tests endpoints against CORS configuration")
 @ControllerMocks
 class CorsTests extends BaseMvcTests {
 
@@ -20,16 +20,39 @@ class CorsTests extends BaseMvcTests {
 
 	private static final String PATH = "/csv/constraints/cors/";
 
-	private static final String END_POINTS = PATH + "endpoints.csv";
-
 	@DisplayName("Should CORS request be accepted")
 	@ParameterizedTest
-	@CsvFileSource(resources = END_POINTS, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+	@CsvFileSource(resources = PATH
+			+ "endpoints.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
 	void shouldCorsBeAccepted(String method, String path) throws Exception {
 		MockHttpServletRequestBuilder builder = requestBuilder("OPTIONS", path,
 				"anonymous").header("Access-Control-Request-Method", method)
 				.header("Origin", allowedOrigins[0]);
 		perform(builder).andExpect(status().is(200));
+	}
+
+	@DisplayName("Should CORS request be rejected with bad origin (403)")
+	@ParameterizedTest
+	@CsvFileSource(resources = PATH
+			+ "endpoints.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+	void shouldCorsBeRejectedWithBadOrigin(String method, String path)
+			throws Exception {
+		MockHttpServletRequestBuilder builder = requestBuilder("OPTIONS", path,
+				"anonymous").header("Access-Control-Request-Method", method)
+				.header("Origin", "http://toto.com");
+		perform(builder).andExpect(status().is(403));
+	}
+
+	@DisplayName("Should CORS request be rejected with bad method (403)")
+	@ParameterizedTest
+	@CsvFileSource(resources = PATH
+			+ "request-method-rejected.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+	void shouldCorsBeRejectedWithBadMethod(String method, String path)
+			throws Exception {
+		MockHttpServletRequestBuilder builder = requestBuilder("OPTIONS", path,
+				"anonymous").header("Access-Control-Request-Method", method)
+				.header("Origin", allowedOrigins[0]);
+		perform(builder).andExpect(status().is(403));
 	}
 
 }
