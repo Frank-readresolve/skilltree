@@ -1,0 +1,6 @@
+method§path§tokenName
+
+PATCH§/accounts/0/password§admin
+GET§/certifications/0/activities/label-values§admin
+
+GET§/certifications/0/activities/label-values§trainer
