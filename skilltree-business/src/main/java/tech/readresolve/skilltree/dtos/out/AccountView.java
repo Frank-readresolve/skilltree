@@ -2,14 +2,14 @@ package tech.readresolve.skilltree.dtos.out;
 
 public interface AccountView {
 
-	Long getId();
+    Long getId();
 
-	String getUsername();
+    String getUsername();
 
-	String getFirstname();
+    String getFirstname();
 
-	String getLastname();
+    String getLastname();
 
-	String getRoleCode();
+    String getRoleCode();
 
 }

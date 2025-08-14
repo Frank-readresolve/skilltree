@@ -17,10 +17,10 @@ import tech.readresolve.skilltree.dtos.in.constraints.validators.SkillUniqueCode
 @Constraint(validatedBy = SkillUniqueCodeValidator.class)
 public @interface SkillUniqueCode {
 
-	String message() default "{skilltree.validation.constraints.Unique.message}";
+    String message() default "{skilltree.validation.constraints.Unique.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
 }

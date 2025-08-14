@@ -18,41 +18,41 @@ import tech.readresolve.skilltree.Interpolator;
 @ControllerMocks
 class ValidationsTests extends BaseMvcTests {
 
-	private static final String PATH = "/csv/constraints/validations/";
+    private static final String PATH = "/csv/constraints/validations/";
 
-	@DisplayName("Should inputs be not valid (422) with specific error code")
-	@ParameterizedTest
-	@CsvFileSource(resources = { PATH + "account-create-not-valid.csv",
-			PATH + "activity-create-not-valid.csv",
-			PATH + "certification-create-not-valid.csv",
-			PATH + "sign-in-not-valid.csv", PATH + "skill-create-not-valid.csv",
-			PATH + "training-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-	void shouldBeNotValid(String method, String path, String tokenName,
-			String json, String field, String error) throws Exception {
-		String jsonPath;
-		if (null != field) { // Field error
-			jsonPath = String.format("$.errors.*.%s[*].code", field);
-		} else { // Global error
-			jsonPath = "$.errors.globals.*.code";
-		}
-		var interpolated = Interpolator.interpolate(json);
-		perform(method, path, tokenName, interpolated)
-				.andExpect(status().is(422))
-				.andExpect(jsonPath(jsonPath, hasItem(error)));
+    @DisplayName("Should inputs be not valid (422) with specific error code")
+    @ParameterizedTest
+    @CsvFileSource(resources = { PATH + "account-create-not-valid.csv",
+	    PATH + "activity-create-not-valid.csv",
+	    PATH + "certification-create-not-valid.csv",
+	    PATH + "sign-in-not-valid.csv", PATH + "skill-create-not-valid.csv",
+	    PATH + "training-create-not-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    void shouldBeNotValid(String method, String path, String tokenName,
+	    String json, String field, String error) throws Exception {
+	String jsonPath;
+	if (null != field) { // Field error
+	    jsonPath = String.format("$.errors.*.%s[*].code", field);
+	} else { // Global error
+	    jsonPath = "$.errors.globals.*.code";
 	}
+	var interpolated = Interpolator.interpolate(json);
+	perform(method, path, tokenName, interpolated)
+		.andExpect(status().is(422))
+		.andExpect(jsonPath(jsonPath, hasItem(error)));
+    }
 
-	@DisplayName("Should inputs be valid (2xx successful)")
-	@ParameterizedTest
-	@CsvFileSource(resources = { PATH + "account-create-valid.csv",
-			PATH + "activity-create-valid.csv",
-			PATH + "certification-create-valid.csv", PATH + "sign-in-valid.csv",
-			PATH + "skill-create-valid.csv",
-			PATH + "training-create-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-	void shouldBeValid(String method, String path, String tokenName,
-			String json) throws Exception {
-		var interpolated = Interpolator.interpolate(json);
-		perform(method, path, tokenName, interpolated)
-				.andExpect(status().is2xxSuccessful());
-	}
+    @DisplayName("Should inputs be valid (2xx successful)")
+    @ParameterizedTest
+    @CsvFileSource(resources = { PATH + "account-create-valid.csv",
+	    PATH + "activity-create-valid.csv",
+	    PATH + "certification-create-valid.csv", PATH + "sign-in-valid.csv",
+	    PATH + "skill-create-valid.csv",
+	    PATH + "training-create-valid.csv" }, numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    void shouldBeValid(String method, String path, String tokenName,
+	    String json) throws Exception {
+	var interpolated = Interpolator.interpolate(json);
+	perform(method, path, tokenName, interpolated)
+		.andExpect(status().is2xxSuccessful());
+    }
 
 }

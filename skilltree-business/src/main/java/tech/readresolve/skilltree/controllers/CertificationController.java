@@ -22,27 +22,27 @@ import tech.readresolve.skilltree.services.CertificationService;
 @RequestMapping("/certifications")
 public class CertificationController {
 
-	private final CertificationService service;
+    private final CertificationService service;
 
-	CertificationController(CertificationService service) {
-		this.service = service;
-	}
+    CertificationController(CertificationService service) {
+	this.service = service;
+    }
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	void create(@RequestBody @Valid CertificationCreate inputs) {
-		service.create(inputs);
-	}
+    @PostMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void create(@RequestBody @Valid CertificationCreate inputs) {
+	service.create(inputs);
+    }
 
-	@GetMapping("/label-values")
-	Collection<CertificationLabelValue> labelValues() {
-		return service.labelValues();
-	}
+    @GetMapping("/label-values")
+    Collection<CertificationLabelValue> labelValues() {
+	return service.labelValues();
+    }
 
-	@GetMapping("/{id}/activities/label-values")
-	Collection<ActivityLabelValue> activitiesLabelValues(
-			@PathVariable("id") Long certificationId) {
-		return service.activitiesLabelValues(certificationId);
-	}
+    @GetMapping("/{id}/activities/label-values")
+    Collection<ActivityLabelValue> activitiesLabelValues(
+	    @PathVariable("id") Long certificationId) {
+	return service.activitiesLabelValues(certificationId);
+    }
 
 }

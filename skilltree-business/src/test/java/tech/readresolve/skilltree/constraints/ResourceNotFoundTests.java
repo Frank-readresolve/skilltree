@@ -17,23 +17,23 @@ import tech.readresolve.skilltree.services.helpers.Mailer;
 @Transactional
 class ResourceNotFoundTests extends BaseMvcTests {
 
-	private static final String PATH = "/csv/constraints/resource-not-found/";
+    private static final String PATH = "/csv/constraints/resource-not-found/";
 
-	@MockitoBean
-	private Mailer mailer;
+    @MockitoBean
+    private Mailer mailer;
 
-	@MockitoBean
-	private LocalValidatorFactoryBean validator;
+    @MockitoBean
+    private LocalValidatorFactoryBean validator;
 
-	@DisplayName("Should resource be not found (404)")
-	@ParameterizedTest
-	@CsvFileSource(resources = PATH
-			+ "endpoints.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-	void shouldResourceBeNotFound(String method, String path, String tokenName)
-			throws Exception {
-		MockHttpServletRequestBuilder builder = requestBuilder(method, path,
-				tokenName);
-		perform(builder).andExpect(status().is(404));
-	}
+    @DisplayName("Should resource be not found (404)")
+    @ParameterizedTest
+    @CsvFileSource(resources = PATH
+	    + "endpoints.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
+    void shouldResourceBeNotFound(String method, String path, String tokenName)
+	    throws Exception {
+	MockHttpServletRequestBuilder builder = requestBuilder(method, path,
+		tokenName);
+	perform(builder).andExpect(status().is(404));
+    }
 
 }

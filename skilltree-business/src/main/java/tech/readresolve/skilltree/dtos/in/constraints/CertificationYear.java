@@ -17,10 +17,10 @@ import tech.readresolve.skilltree.dtos.in.constraints.validators.CertificationYe
 @Constraint(validatedBy = CertificationYearValidator.class)
 public @interface CertificationYear {
 
-	String message() default "{skilltree.validation.constraints.CertificationYear.message}";
+    String message() default "{skilltree.validation.constraints.CertificationYear.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
 }

@@ -12,30 +12,30 @@ import tech.readresolve.skilltree.repositories.BaseRepository;
 @Transactional(readOnly = true)
 abstract class BaseService {
 
-	private static final String NOT_FOUND_MSG = "resource not found with id '%s'";
+    private static final String NOT_FOUND_MSG = "resource not found with id '%s'";
 
-	BaseService() {
-		//
-	}
+    BaseService() {
+	//
+    }
 
-	protected static <T extends BaseEntity> void existsByIdOrNotFound(
-			BaseRepository<T> repo, Long id) throws ResourceNotFoundException {
-		if (!repo.existsById(id)) {
-			throw new ResourceNotFoundException(
-					String.format(NOT_FOUND_MSG, id));
-		}
+    protected static <T extends BaseEntity> void existsByIdOrNotFound(
+	    BaseRepository<T> repo, Long id) throws ResourceNotFoundException {
+	if (!repo.existsById(id)) {
+	    throw new ResourceNotFoundException(
+		    String.format(NOT_FOUND_MSG, id));
 	}
+    }
 
-	protected static <T extends BaseEntity> T findByIdOrNotFound(
-			BaseRepository<T> repo, Long id) throws ResourceNotFoundException {
-		return findOrNotFound(() -> repo.findById(id), NOT_FOUND_MSG, id);
-	}
+    protected static <T extends BaseEntity> T findByIdOrNotFound(
+	    BaseRepository<T> repo, Long id) throws ResourceNotFoundException {
+	return findOrNotFound(() -> repo.findById(id), NOT_FOUND_MSG, id);
+    }
 
-	protected static <T> T findOrNotFound(Supplier<Optional<T>> supplier,
-			String message, Object... specifiers)
-			throws ResourceNotFoundException {
-		return supplier.get().orElseThrow(() -> new ResourceNotFoundException(
-				String.format(message, specifiers)));
-	}
+    protected static <T> T findOrNotFound(Supplier<Optional<T>> supplier,
+	    String message, Object... specifiers)
+	    throws ResourceNotFoundException {
+	return supplier.get().orElseThrow(() -> new ResourceNotFoundException(
+		String.format(message, specifiers)));
+    }
 
 }

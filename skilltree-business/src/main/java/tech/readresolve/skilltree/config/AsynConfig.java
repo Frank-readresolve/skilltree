@@ -8,5 +8,5 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @ConditionalOnProperty(value = "skilltree.async.enabled", havingValue = "true", matchIfMissing = true)
 class AsynConfig {
-	// Empty class
+    // Empty class
 }

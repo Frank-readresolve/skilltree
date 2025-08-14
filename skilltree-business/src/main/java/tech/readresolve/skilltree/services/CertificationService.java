@@ -17,43 +17,43 @@ import tech.readresolve.skilltree.repositories.CertificationReposiroty;
 @Service
 public class CertificationService extends BaseService {
 
-	private final CertificationReposiroty certifications;
+    private final CertificationReposiroty certifications;
 
-	private final CertificationLevelRepository levels;
+    private final CertificationLevelRepository levels;
 
-	private final ActivityReposiroty activities;
+    private final ActivityReposiroty activities;
 
-	CertificationService(CertificationReposiroty certifications,
-			CertificationLevelRepository levels,
-			ActivityReposiroty activities) {
-		this.certifications = certifications;
-		this.levels = levels;
-		this.activities = activities;
-	}
+    CertificationService(CertificationReposiroty certifications,
+	    CertificationLevelRepository levels,
+	    ActivityReposiroty activities) {
+	this.certifications = certifications;
+	this.levels = levels;
+	this.activities = activities;
+    }
 
-	@Transactional
-	public void create(CertificationCreate inputs) {
-		Certification entity = new Certification();
-		CertificationLevel level = levels
-				.getReferenceById(inputs.certificationLevelId());
-		entity.setLevel(level);
-		entity.setCode(inputs.code());
-		entity.setName(inputs.name());
-		entity.setAcronym(inputs.acronym());
-		entity.setStartYear(inputs.startYear());
-		entity.setDescription(inputs.description());
-		certifications.save(entity);
-	}
+    @Transactional
+    public void create(CertificationCreate inputs) {
+	Certification entity = new Certification();
+	CertificationLevel level = levels
+		.getReferenceById(inputs.certificationLevelId());
+	entity.setLevel(level);
+	entity.setCode(inputs.code());
+	entity.setName(inputs.name());
+	entity.setAcronym(inputs.acronym());
+	entity.setStartYear(inputs.startYear());
+	entity.setDescription(inputs.description());
+	certifications.save(entity);
+    }
 
-	public Collection<CertificationLabelValue> labelValues() {
-		return certifications.findAllProjectedByOrderByNameAscCode();
-	}
+    public Collection<CertificationLabelValue> labelValues() {
+	return certifications.findAllProjectedByOrderByNameAscCode();
+    }
 
-	public Collection<ActivityLabelValue> activitiesLabelValues(
-			Long certificationId) {
-		existsByIdOrNotFound(certifications, certificationId);
-		return activities
-				.findAllProjectedByCertificationIdOrderByCode(certificationId);
-	}
+    public Collection<ActivityLabelValue> activitiesLabelValues(
+	    Long certificationId) {
+	existsByIdOrNotFound(certifications, certificationId);
+	return activities
+		.findAllProjectedByCertificationIdOrderByCode(certificationId);
+    }
 
 }

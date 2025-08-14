@@ -13,14 +13,14 @@ import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
 @EnableCaching
 public class SkillTree {
 
-	@ExcludeFromJacocoGeneratedReport
-	public static void main(String[] args) {
-		SpringApplication.run(SkillTree.class, args);
-	}
+    @ExcludeFromJacocoGeneratedReport
+    public static void main(String[] args) {
+	SpringApplication.run(SkillTree.class, args);
+    }
 
-	@Bean
-	CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager("default-cache");
-	}
+    @Bean
+    CacheManager cacheManager() {
+	return new ConcurrentMapCacheManager("default-cache");
+    }
 
 }

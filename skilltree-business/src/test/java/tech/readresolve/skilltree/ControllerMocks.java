@@ -17,8 +17,8 @@ import tech.readresolve.skilltree.controllers.TrainingController;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @MockitoBean(types = { AccountController.class, ActivityController.class,
-		CertificationLevelController.class, CertificationController.class,
-		SkillController.class, TrainingController.class })
+	CertificationLevelController.class, CertificationController.class,
+	SkillController.class, TrainingController.class })
 public @interface ControllerMocks {
-	//
+    //
 }
