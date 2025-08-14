@@ -12,26 +12,26 @@ import tech.readresolve.skilltree.repositories.CertificationReposiroty;
 @Service
 public class ActivityService extends BaseService {
 
-	private final ActivityReposiroty activities;
+    private final ActivityReposiroty activities;
 
-	private final CertificationReposiroty certifications;
+    private final CertificationReposiroty certifications;
 
-	ActivityService(ActivityReposiroty activities,
-			CertificationReposiroty certifications) {
-		this.activities = activities;
-		this.certifications = certifications;
-	}
+    ActivityService(ActivityReposiroty activities,
+	    CertificationReposiroty certifications) {
+	this.activities = activities;
+	this.certifications = certifications;
+    }
 
-	@Transactional
-	public void create(ActivityCreate inputs) {
-		Activity entity = new Activity();
-		Certification certification = certifications
-				.getReferenceById(inputs.certificationId());
-		entity.setCertification(certification);
-		entity.setCode(inputs.code());
-		entity.setName(inputs.name());
-		entity.setDescription(inputs.description());
-		activities.save(entity);
-	}
+    @Transactional
+    public void create(ActivityCreate inputs) {
+	Certification certification = certifications
+		.getReferenceById(inputs.certificationId());
+	Activity entity = new Activity();
+	entity.setCode(inputs.code());
+	entity.setCertification(certification);
+	entity.setName(inputs.name());
+	entity.setDescription(inputs.description());
+	activities.save(entity);
+    }
 
 }

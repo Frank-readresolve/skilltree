@@ -1,6 +1,6 @@
 package tech.readresolve.skilltree.dtos.out;
 
-public record CertificationLevelLabelValue(Long id, String europeanLevel,
-		String equivalence) {
-	//
+public record CertificationLevelLabelValue(Long id, int europeanLevel,
+	String equivalence) {
+    //
 }
