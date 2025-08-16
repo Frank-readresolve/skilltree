@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
+
 final class ValidationErrors {
 
     private final Collection<ValidationError> globals;
@@ -40,6 +42,7 @@ final class ValidationErrors {
     }
 
     @Override
+    @ExcludeFromJacocoGeneratedReport
     public String toString() {
 	return String.format("{globals=%s, fields=%s}", globals, fields);
     }

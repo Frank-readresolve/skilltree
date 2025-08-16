@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import tech.readresolve.skilltree.misc.ExcludeFromJacocoGeneratedReport;
+
 @RestControllerAdvice
 final class ControllerAdvice extends ResponseEntityExceptionHandler {
 
@@ -67,11 +69,16 @@ final class ControllerAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex,
 	    Object body, HttpHeaders headers, HttpStatusCode status,
 	    WebRequest request) {
+	doLogDebug(ex);
+	return super.handleExceptionInternal(ex, body, headers, status,
+		request);
+    }
+
+    @ExcludeFromJacocoGeneratedReport
+    private void doLogDebug(Exception ex) {
 	if (logger.isDebugEnabled()) {
 	    logger.debug(ex);
 	}
-	return super.handleExceptionInternal(ex, body, headers, status,
-		request);
     }
 
 }

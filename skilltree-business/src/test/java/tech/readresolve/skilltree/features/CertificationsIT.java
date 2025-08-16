@@ -1,7 +1,8 @@
 package tech.readresolve.skilltree.features;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,43 +30,45 @@ class CertificationsIT extends BaseIntegrationTests {
     @ParameterizedTest
     @CsvFileSource(resources = PATH
 	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldCreateCertification(String json) throws Exception {
+    void shouldCreate(String json) throws Exception {
 	var interpolated = Interpolator.interpolate(json);
 	perform("POST", "/certifications", "admin", interpolated)
 		.andExpect(status().is(204));
 	var certification = findEntity(Certification.class,
 		CERTIFICATION_BY_CODE, asString(interpolated, "$.code"));
-	assertThat(certification).isNotNull();
-	assertThat(certification.getLevel().getId())
-		.isEqualTo(asLong(interpolated, "$.certificationLevelId"));
-	assertThat(certification.getCode())
-		.isEqualTo(asString(interpolated, "$.code"));
-	assertThat(certification.getName())
-		.isEqualTo(asString(interpolated, "$.name"));
-	assertThat(certification.getAcronym())
-		.isEqualTo(asString(interpolated, "$.acronym"));
-	assertThat(certification.getStartYear())
-		.isEqualTo(asYear(interpolated, "$.startYear"));
-	assertThat(certification.getDescription())
-		.isEqualTo(asString(interpolated, "$.description"));
+	assertNotNull(certification);
+	assertNotNull(certification.getId());
+	assertEquals(asLong(interpolated, "$.certificationLevelId"),
+		certification.getLevel().getId());
+	assertEquals(asString(interpolated, "$.code"), certification.getCode());
+	assertEquals(asString(interpolated, "$.name"), certification.getName());
+	assertEquals(asString(interpolated, "$.acronym"),
+		certification.getAcronym());
+	assertEquals(asYear(interpolated, "$.startYear"),
+		certification.getStartYear());
+	assertEquals(asString(interpolated, "$.description"),
+		certification.getDescription());
     }
 
-    @DisplayName("Should return all certifications")
+    @DisplayName("Should get all certifications")
     @ParameterizedTest
     @ValueSource(strings = { "admin", "trainer" })
-    void shouldReturnAllCertifications(String tokenName) throws Exception {
+    void shouldGetAll(String tokenName) throws Exception {
 	perform("GET", "/certifications/label-values", tokenName)
 		.andExpect(status().is(200))
 		.andExpect(jsonPath("$.length()", is(2)));
     }
 
-    @DisplayName("Should return all activities for one certification")
+    @DisplayName("Should get all activities for one certification")
     @ParameterizedTest
     @ValueSource(strings = { "admin", "trainer" })
-    void shouldReturnAllActivitiesForOneCertification(String tokenName)
-	    throws Exception {
-	perform("GET", "/certifications/1/activities/label-values", tokenName)
-		.andExpect(status().is(200))
+    void shouldGetAllActivitiesForOne(String tokenName) throws Exception {
+	var certification = findEntity(Certification.class,
+		CERTIFICATION_BY_CODE, "RNCP37873");
+	var id = certification.getId();
+	perform("GET",
+		String.format("/certifications/%s/activities/label-values", id),
+		tokenName).andExpect(status().is(200))
 		.andExpect(jsonPath("$.length()", is(3)));
     }
 

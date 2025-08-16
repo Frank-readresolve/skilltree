@@ -1,6 +1,7 @@
 package tech.readresolve.skilltree.features;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.DisplayName;
@@ -27,21 +28,20 @@ class TrainingsIT extends BaseIntegrationTests {
     @ParameterizedTest
     @CsvFileSource(resources = PATH
 	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldCreateTraining(String json) throws Exception {
+    void shouldCreate(String json) throws Exception {
 	perform("POST", "/trainings", "admin", json)
 		.andExpect(status().is(204));
 	var name = JsonPath.read(json, "$.name");
 	var training = findEntity(Training.class, TRAINING_BY_NAME, name);
-	assertThat(training).isNotNull();
-	assertThat(training.getCertification().getId())
-		.isEqualTo(asLong(json, "$.certificationId"));
-	assertThat(training.getName()).isEqualTo(asString(json, "$.name"));
-	assertThat(training.getStartDate())
-		.isEqualTo(asLocalDate(json, "$.startDate"));
-	assertThat(training.getEndDate())
-		.isEqualTo(asLocalDate(json, "$.endDate"));
-	assertThat(training.getDescription())
-		.isEqualTo(asString(json, "$.description"));
+	assertNotNull(training);
+	assertNotNull(training.getId());
+	assertEquals(asLong(json, "$.certificationId"),
+		training.getCertification().getId());
+	assertEquals(asString(json, "$.name"), training.getName());
+	assertEquals(asLocalDate(json, "$.startDate"), training.getStartDate());
+	assertEquals(asLocalDate(json, "$.endDate"), training.getEndDate());
+	assertEquals(asString(json, "$.description"),
+		training.getDescription());
     }
 
 }

@@ -34,6 +34,9 @@ class SecurityConfig {
     @Value("${skilltree.cors.enabled}")
     private boolean corsEnabled;
 
+    @Value("${skilltree.security.pwd.encoder.strength}")
+    private int strength;
+
     @Value("${skilltree.security.jwt.issuer}")
     private String issuer;
 
@@ -92,7 +95,7 @@ class SecurityConfig {
 	JwtProvider jwtProvider = new JwtProvider(issuer, expiration,
 		algorithm);
 	return new AuthenticationHelper(jwtProvider,
-		new BCryptPasswordEncoder());
+		new BCryptPasswordEncoder(strength));
     }
 
 }

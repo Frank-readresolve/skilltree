@@ -19,10 +19,10 @@ import tech.readresolve.skilltree.dtos.out.CertificationLevelLabelValue;
 @DisplayName("Certification levels features integration tests")
 class CertificationLevelsIT extends BaseIntegrationTests {
 
-    @DisplayName("Should return all certification levels")
+    @DisplayName("Should get all certification levels")
     @ParameterizedTest
     @ValueSource(strings = { "admin", "trainer" })
-    void shouldReturnAllCertificationLevels(String tokenName) throws Exception {
+    void shouldGetAll(String tokenName) throws Exception {
 	MvcResult result = perform("GET", "/certification-levels/label-values",
 		tokenName).andExpect(status().is(200)).andReturn();
 	String body = result.getResponse().getContentAsString();

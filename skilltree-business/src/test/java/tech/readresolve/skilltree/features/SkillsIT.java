@@ -1,6 +1,7 @@
 package tech.readresolve.skilltree.features;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,17 +26,16 @@ class SkillsIT extends BaseIntegrationTests {
     @ParameterizedTest
     @CsvFileSource(resources = PATH
 	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldCreateSkill(String json) throws Exception {
+    void shouldCreate(String json) throws Exception {
 	perform("POST", "/skills", "admin", json).andExpect(status().is(204));
 	var skill = findEntity(Skill.class, SKILL_BY_CODE,
 		asString(json, "$.code"));
-	assertThat(skill).isNotNull();
-	assertThat(skill.getActivity().getId())
-		.isEqualTo(asLong(json, "$.activityId"));
-	assertThat(skill.getCode()).isEqualTo(asString(json, "$.code"));
-	assertThat(skill.getName()).isEqualTo(asString(json, "$.name"));
-	assertThat(skill.getDescription())
-		.isEqualTo(asString(json, "$.description"));
+	assertNotNull(skill);
+	assertNotNull(skill.getId());
+	assertEquals(asLong(json, "$.activityId"), skill.getActivity().getId());
+	assertEquals(asString(json, "$.code"), skill.getCode());
+	assertEquals(asString(json, "$.name"), skill.getName());
+	assertEquals(asString(json, "$.description"), skill.getDescription());
     }
 
 }

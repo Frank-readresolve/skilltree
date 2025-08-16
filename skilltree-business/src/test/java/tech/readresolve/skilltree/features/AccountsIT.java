@@ -1,11 +1,14 @@
 package tech.readresolve.skilltree.features;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,8 +28,7 @@ class AccountsIT extends BaseIntegrationTests {
 
     private static final String PATH = "/csv/features/accounts/";
 
-    private static final Pattern TRAINER_CODE_PATTERN = Pattern
-	    .compile("^FO[0-9]{8}$");
+    private static final String TRAINER_CODE_PATTERN = "^FO[0-9]{8}$";
 
     private static final String TRAINER_BY_USERNAME = """
     	select t from Trainer t
@@ -53,16 +55,16 @@ class AccountsIT extends BaseIntegrationTests {
 	// verify token:
 	var decoded = JWT.decode(asString(body, "$.token"));
 	var sub = decoded.getSubject();
-	assertThat(sub).isEqualTo(account.getUsername());
+	assertEquals(sub, account.getUsername());
 	var roles = decoded.getClaim("roles").asList(String.class);
-	assertThat(roles).contains(account.getRole().getCode());
+	assertTrue(roles.contains(account.getRole().getCode()));
 	// verify auth info:
-	assertThat(asString(body, "$.accountInfo.firstname"))
-		.isEqualTo(account.getFirstname());
-	assertThat(asString(body, "$.accountInfo.lastname"))
-		.isEqualTo(account.getLastname());
-	assertThat(asString(body, "$.accountInfo.role"))
-		.isEqualTo(account.getRole().getCode());
+	assertEquals(asString(body, "$.accountInfo.firstname"),
+		account.getFirstname());
+	assertEquals(asString(body, "$.accountInfo.lastname"),
+		account.getLastname());
+	assertEquals(asString(body, "$.accountInfo.role"),
+		account.getRole().getCode());
     }
 
     @DisplayName("Should not sign-in and return 401")
@@ -78,22 +80,24 @@ class AccountsIT extends BaseIntegrationTests {
     @ParameterizedTest
     @CsvFileSource(resources = PATH
 	    + "create.csv", numLinesToSkip = 1, delimiter = DELIMITER, maxCharsPerColumn = MAX_CHARS_PER_COLUMN)
-    void shouldCreateAccount(String json) throws Exception {
+    void shouldCreate(String json) throws Exception {
 	perform("POST", "/accounts", "admin", json).andExpect(status().is(204));
 	var username = JsonPath.read(json, "$.username");
 	var trainer = findEntity(Trainer.class, TRAINER_BY_USERNAME, username);
-	assertThat(trainer).isNotNull();
-	assertThat(trainer.getCode()).matches(TRAINER_CODE_PATTERN);
+	assertNotNull(trainer);
+	assertNotNull(trainer.getId());
+	assertNotNull(trainer.getCode());
+	// FIXME: assertThat deprecated
+	assertTrue(trainer.getCode().matches(TRAINER_CODE_PATTERN));
 	var account = trainer.getAccount();
-	assertThat(account).isNotNull();
-	assertThat(account.getFirstname())
-		.isEqualTo(asString(json, "$.firstname"));
-	assertThat(account.getLastname())
-		.isEqualTo(asString(json, "$.lastname"));
-	assertThat(account.getPassword()).isNotNull();
+	assertNotNull(account);
+	assertNotNull(account.getId());
+	assertEquals(asString(json, "$.firstname"), account.getFirstname());
+	assertEquals(asString(json, "$.lastname"), account.getLastname());
+	assertNotNull(account.getPassword());
 	var role = account.getRole();
-	assertThat(role).isNotNull();
-	assertThat(role.getCode()).isEqualTo(Role.DEFAULT);
+	assertNotNull(role);
+	assertEquals(Role.DEFAULT, role.getCode());
     }
 
     @DisplayName("Should reset an account password")
@@ -107,14 +111,15 @@ class AccountsIT extends BaseIntegrationTests {
 		.andExpect(status().is(204));
 	account = findEntity(Account.class, id);
 	var newHash = account.getPassword();
-	assertThat(newHash).isNotEqualTo(currentHash);
+	assertNotEquals(newHash, currentHash);
     }
 
-    @DisplayName("Should return all accounts but authenticated user")
+    @DisplayName("Should get all accounts (excluding authenticated admin user)")
     @Test
-    void shouldReturnAllAccounts() throws Exception {
+    void shouldGetAllAccounts() throws Exception {
 	perform("GET", "/accounts", "admin").andExpect(status().is(200))
-		.andExpect(jsonPath("$.length()", is(2)));
+		.andExpect(jsonPath("$.length()", is(2))).andExpect(jsonPath(
+			"$[*].username", not(hasItem("admin@localhost"))));
     }
 
 }
